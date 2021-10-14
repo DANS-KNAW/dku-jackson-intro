@@ -16,6 +16,7 @@
 package nl.knaw.dans.testjackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -41,6 +42,34 @@ public class JacksonTest {
         log.debug("Name = {}", e.getName());
         Assertions.assertEquals("Ejemplo1", e.getName());
         Assertions.assertEquals(1, e.getDifficulty());
+    }
+
+    @Test
+    public void canReadDataverseBean() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        DataverseBean e = mapper.readValue(new File("src/test/resources/dataverse.json"), DataverseBean.class);
+        log.debug("Name = {}", e.getName());
+        log.debug("DataverseType = {}", e.getDataverseType());
+        Assertions.assertEquals(DataverseType.UNCATEGORIZED, e.getDataverseType());
+    }
+
+    @Test
+    public void failsToReadReadInvalidDataverseBean() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            mapper.readValue(new File("src/test/resources/dataverse-invalid-enum.json"), DataverseBean.class);
+        }catch(InvalidFormatException e){
+            Assertions.assertEquals(e.getMessage(),"Cannot deserialize value of type `nl.knaw.dans.testjackson.DataverseType` from String \"BLABLA\": not one of the values accepted for Enum class: [ARCH EOLOGY, UNCATEGORIZED, HUMANITIES]\n" + " at [Source: (File); line: 7, column: 20] (through reference chain: nl.knaw.dans.testjackson.DataverseBean[\"dataverseType\"])");
+        }
+    }
+
+    @Test
+    public void canReadReadReadSpacedDataverseBean() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        DataverseBean e = mapper.readValue(new File("src/test/resources/dataverse-arch-eology.json"), DataverseBean.class);
+        log.debug("Name = {}", e.getName());
+        log.debug("DataverseType = {}", e.getDataverseType());
+        Assertions.assertEquals(DataverseType.ARCHEOLOGY, e.getDataverseType());
     }
 
     @Test

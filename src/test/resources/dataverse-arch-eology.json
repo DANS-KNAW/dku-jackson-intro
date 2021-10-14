@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "alias": "root",
+  "name": "Root",
+  "permissionRoot": true,
+  "description": "The root dataverse.",
+  "dataverseType": "ARCH EOLOGY",
+  "creationDate": "2021-07-21T16:10:25Z"
+}

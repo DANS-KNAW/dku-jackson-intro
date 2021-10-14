@@ -21,7 +21,7 @@ public class DataverseBean {
     private String name;
     private boolean permissionRoot;
     private String description;
-    private String dataverseType;
+    private DataverseType dataverseType;
     private String creationDate;
 
     public int getId() {
@@ -64,11 +64,11 @@ public class DataverseBean {
         this.description = description;
     }
 
-    public String getDataverseType() {
+    public DataverseType getDataverseType() {
         return dataverseType;
     }
 
-    public void setDataverseType(String dataverseType) {
+    public void setDataverseType(DataverseType dataverseType) {
         this.dataverseType = dataverseType;
     }
 
