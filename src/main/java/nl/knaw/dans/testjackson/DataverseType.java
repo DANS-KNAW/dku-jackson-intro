@@ -8,14 +8,13 @@ public enum DataverseType {
   HUMANITIES("HUMANITIES");
   private String value;
 
-  DataverseType(String displayName) {
-    this.value = displayName;
+  DataverseType(String displayValue) {
+    value = displayValue;
   }
 
   @JsonValue
   public String value() { return value; }
 
-  // Optionally and/or additionally, toString.
   @Override public String toString() { return value; }
 }
 
